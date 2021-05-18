@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "jsx": "react",
+        "paths": {
+            "_containers": [ "src/containers/index" ],
+            "_containers/*": [ "src/containers/*" ],
+            "_routes": [ "src/routes/index" ],
+            "_routes/*": [ "src/routes/*" ],
+            "_components": [ "src/components/index" ],
+            "_components/*": [ "src/components/*" ],
+            "_hooks": [ "src/hooks/index" ],
+            "_hooks/*": [ "src/hooks/*" ],
+            "_assets": [ "src/assets/index" ],
+            "_assets/*": [ "src/assets/*" ],
+            "_utils": [ "src/utils/index" ],
+            "_utils/*": [ "src/utils/*" ],
+            "_constants": [ "src/constants/index" ],
+            "_constants/*": [ "src/constants/*" ],
+            "_actions": [ "src/actions/index" ],
+            "_actions/*": [ "src/actions/*" ],
+            "_selectors": [ "src/selectors/index" ],
+            "_selectors/*": [ "src/selectors/*" ],
+            "_sagas": [ "src/sagas/index" ],
+            "_sagas/*": [ "src/sagas/*" ],
+            "_reducers": [ "src/reducers/index" ],
+            "_reducers/*": [ "src/reducers/*" ],
+            "_store": [ "src/store/index" ],
+            "_store/*": [ "src/store/*" ]
+        }
+    },
+    "exclude": ["node_modules"]
+}
