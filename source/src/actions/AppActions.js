@@ -3,16 +3,16 @@ export const loading = payload => ({
     payload,
 })
 
-export const showLoading = () => ({
-    type: actionTypes.LOADING,
-    payload: true,
-})
+export const showLoading = () => loading(true)
 
-export const hideLoading = () => ({
-    type: actionTypes.LOADING,
-    payload: false,
+export const hideLoading = () => loading(false)
+
+export const setLanguage = payload => ({
+    type: actionTypes.SET_LANGUAGE,
+    payload,
 })
 
 export const actionTypes = {
     LOADING: 'LOADING',
+    SET_LANGUAGE: 'SET_LANGUAGE',
 }

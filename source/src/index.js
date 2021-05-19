@@ -6,6 +6,8 @@ import '_assets/styles/_index.scss'
 
 import App from './App'
 import { Provider } from 'react-redux'
+
+import '_locales'
 import configureStore from '_store'
 const store = configureStore()
 

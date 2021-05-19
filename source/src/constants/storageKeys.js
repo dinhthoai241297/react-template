@@ -1,7 +1,11 @@
-export const USER_JWT = 'USER_JWT'
+export const USER_JWT = 'user-jwt'
 export const USER_DATA = 'user-data'
+export const LANGUAGE = 'language'
 
-export default {
+const KEYS = {
     USER_JWT,
     USER_DATA,
+    LANGUAGE,
 }
+
+export default KEYS

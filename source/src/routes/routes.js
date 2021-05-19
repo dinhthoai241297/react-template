@@ -1,18 +1,18 @@
-import HomePage from '_containers/HomePage'
+import HomePageContainer from '_containers/app/HomePageContainer'
 import PageNotFound from '_components/common/PageNotFound'
 import PageNotAllowed from '_components/common/PageNotAllowed'
 import LoginContainer from '_containers/account/LoginContainer'
 
-export default {
+const routes = {
     root: {
         path: '/',
-        component: HomePage,
+        component: HomePageContainer,
         auth: null,
         title: 'Home page',
     },
     home: {
         path: '/home',
-        component: HomePage,
+        component: HomePageContainer,
         auth: null,
         title: 'Home page',
     },
@@ -35,3 +35,5 @@ export default {
         title: 'Login page',
     },
 }
+
+export default routes

@@ -1,8 +1,4 @@
-import {
-    getObjectData,
-    removeKey,
-    setObjectData,
-} from '_utils/localStorageHelper'
+import { getObjectData, removeKey } from '_utils/localStorageHelper'
 import { AppConstants } from '../constants'
 import { USER_JWT } from '_constants/storageKeys'
 

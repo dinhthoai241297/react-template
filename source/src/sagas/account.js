@@ -2,8 +2,8 @@ import { actionTypes } from '../actions/AccountActions'
 import { sendRequest } from '../services/apiService'
 import { takeLatest, call } from 'redux-saga/effects'
 import apiConfig from '../constants/apiConfig'
-import { setObjectData } from '_utils/localStorageHelper'
-import { USER_JWT } from '_constants/storageKeys'
+// import { setObjectData } from '_utils/localStorageHelper'
+// import { USER_JWT } from '_constants/storageKeys'
 
 function* _login({ payload: { params, onDone } }) {
     // yield put(setLoading(true))
