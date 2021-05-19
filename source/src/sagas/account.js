@@ -5,6 +5,8 @@ import apiConfig from '../constants/apiConfig'
 // import { setObjectData } from '_utils/localStorageHelper'
 // import { USER_JWT } from '_constants/storageKeys'
 
+import { sendSocketRequest } from '../services/socketService'
+
 function* _login({ payload: { params, onDone } }) {
     // yield put(setLoading(true))
     const response = yield call(sendRequest, apiConfig.account.login, params)
@@ -20,6 +22,19 @@ function* _login({ payload: { params, onDone } }) {
     // yield put(setLoading(false))
 }
 
-const sagas = [takeLatest(actionTypes.LOGIN, _login)]
+// test socket
+function* _loginSocket({}) {
+    const res = yield call(sendSocketRequest, apiConfig.socketTest.login, {
+        username: 'admin',
+        password: '113',
+    })
+
+    console.log({ res })
+}
+
+const sagas = [
+    takeLatest(actionTypes.LOGIN, _login),
+    takeLatest('LOGIN_SOCKET', _loginSocket),
+]
 
 export default sagas

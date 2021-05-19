@@ -27,6 +27,11 @@ const apiConfig = {
             auth: true,
         },
     },
+    socketTest: {
+        login: {
+            cmd: 'CMD_LOGIN',
+        },
+    },
 }
 
 export default apiConfig
