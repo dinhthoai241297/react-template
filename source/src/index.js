@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import * as serviceWorker from './serviceWorker'
-import 'antd-mobile/dist/antd-mobile.css'
 import '_assets/styles/_index.scss'
 
 import App from './App'

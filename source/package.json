@@ -37,7 +37,6 @@
     },
     "devDependencies": {
         "@craco/craco": "^6.1.2",
-        "antd-mobile": "^2.3.4",
         "env-cmd": "^10.1.0",
         "i18next": "^20.2.4",
         "immer": "^9.0.2",

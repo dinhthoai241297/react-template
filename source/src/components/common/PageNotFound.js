@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Button } from 'antd-mobile'
 
 class PageNotFound extends Component {
     render() {
@@ -11,9 +10,9 @@ class PageNotFound extends Component {
                     The Page you're looking for was not found.
                 </div>
                 <Link to="/">
-                    <Button className="go-back-btn" type="primary" size="large">
+                    <button className="go-back-btn" type="primary" size="large">
                         Go Back
-                    </Button>
+                    </button>
                 </Link>
             </div>
         )
