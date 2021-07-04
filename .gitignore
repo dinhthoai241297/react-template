@@ -12,3 +12,5 @@
 /source/npm-debug.log*
 /source/yarn-debug.log*
 /source/yarn-error.log*
+
+.vscode/
