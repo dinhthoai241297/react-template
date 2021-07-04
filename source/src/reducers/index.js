@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
-import AccountReducer from './AccountReducer'
-import AppReducer from './AppReducer'
+import appCommon from './appCommon'
+import account from './account'
 
 const rootReducer = combineReducers({
-    AccountReducer,
-    AppReducer,
+    appCommon,
+    account,
 })
 
 export default rootReducer

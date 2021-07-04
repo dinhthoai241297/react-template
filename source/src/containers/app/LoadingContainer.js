@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import Loading from '_components/common/Loading'
-import { getLoading } from '_selectors/appSelectors'
+import { getLoading } from '_selectors/appCommon'
 
 const LoadingContainer = () => {
     const loading = useSelector(getLoading)

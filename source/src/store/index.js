@@ -1,20 +1,18 @@
-import { createStore, applyMiddleware, compose } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
 import createSagaMiddleware from 'redux-saga'
+
 import rootReducer from '_reducers'
 import rootSaga from '_sagas'
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const sagaMiddleware = createSagaMiddleware()
 
-const configureStore = () => {
-    const sagaMiddleware = createSagaMiddleware()
-    const store = createStore(
-        rootReducer,
-        process.env.NODE_ENV === 'development'
-            ? composeEnhancers(applyMiddleware(sagaMiddleware))
-            : applyMiddleware(sagaMiddleware)
-    )
-    sagaMiddleware.run(rootSaga)
-    return store
-}
+const store = configureStore({
+    reducer: rootReducer,
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware().concat(sagaMiddleware),
+    devTools: process.env.NODE_ENV !== 'production',
+})
 
-export default configureStore
+sagaMiddleware.run(rootSaga)
+
+export default store

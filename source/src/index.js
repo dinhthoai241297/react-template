@@ -7,8 +7,7 @@ import App from './App'
 import { Provider } from 'react-redux'
 
 import '_locales'
-import configureStore from '_store'
-const store = configureStore()
+import store from '_store'
 
 ReactDOM.render(
     <Provider store={store}>

@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Switch, BrowserRouter, Redirect, Route } from 'react-router-dom'
-import { getCredential } from '_selectors/accountSelectors'
+import accountSelectors from '_selectors/account'
 import routes from '_routes/routes'
 
 const AppRoutes = () => {
     const [passRequirements, setPassRequirements] = useState(false)
 
-    const credential = useSelector(getCredential)
+    const isAuthenticated = useSelector(accountSelectors.isAuthenticated)
 
     const getRedirect = authRequire => {
-        if (credential.isAuthenticated && authRequire === false) {
+        if (isAuthenticated && authRequire === false) {
             return routes.pageNotAllowed.path
         }
 
-        if (!credential.isAuthenticated && authRequire) {
+        if (!isAuthenticated && authRequire) {
             return routes.login.path
         }
 
@@ -22,7 +22,7 @@ const AppRoutes = () => {
     }
 
     useEffect(() => {
-        // handle requirement (fetch user credentials, ...)
+        // handle requirement (fetch user profile, ...)
         setPassRequirements(true)
     }, [])
 

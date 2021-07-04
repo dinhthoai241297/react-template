@@ -1,40 +1,41 @@
-import { actionTypes } from '../actions/AccountActions'
-import { sendRequest } from '../services/apiService'
-import { takeLatest, call } from 'redux-saga/effects'
-import apiConfig from '../constants/apiConfig'
-// import { setObjectData } from '_utils/localStorageHelper'
-// import { USER_JWT } from '_constants/storageKeys'
+import { takeLatest, put } from 'redux-saga/effects'
+import { login, getProfile } from '_actions/account'
+import { setProfile } from '_reducers/account'
 
-import { sendSocketRequest } from '../services/socketService'
+import {
+    hideFullScreenLoading,
+    showFullScreenLoading,
+} from '_reducers/appCommon'
 
-function* _login({ payload: { params, onDone } }) {
-    // yield put(setLoading(true))
-    const response = yield call(sendRequest, apiConfig.account.login, params)
-    const { responseData, success } = response
+function* _login({ payload: { params, onCompleted, onError } }) {}
 
-    if (success && responseData?.result) {
-        // yield put(loginSuccess())
-        // save storage
-        // setObjectData(USER_JWT, responseData)
+function* _getProfile({ payload: { params, onCompleted, onError } }) {
+    yield put(showFullScreenLoading())
+    try {
+        yield new Promise(resolve => {
+            setTimeout(() => {
+                resolve(true)
+            }, 2000)
+        })
+
+        yield put(
+            setProfile({
+                username: 'admin',
+                kind: 1,
+                email: 'admin@gmail.com',
+            })
+        )
+        onCompleted && onCompleted(true)
+    } catch (error) {
+        onError && onError(error)
+    } finally {
+        yield put(hideFullScreenLoading())
     }
-
-    onDone && onDone(response)
-    // yield put(setLoading(false))
-}
-
-// test socket
-function* _loginSocket({}) {
-    const res = yield call(sendSocketRequest, apiConfig.socketTest.login, {
-        username: 'admin',
-        password: '113',
-    })
-
-    console.log({ res })
 }
 
 const sagas = [
-    takeLatest(actionTypes.LOGIN, _login),
-    takeLatest('LOGIN_SOCKET', _loginSocket),
+    takeLatest(login.type, _login),
+    takeLatest(getProfile.type, _getProfile),
 ]
 
 export default sagas
