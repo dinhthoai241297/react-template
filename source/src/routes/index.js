@@ -5,7 +5,7 @@ import { getCredential } from '_selectors/accountSelectors'
 import routes from '_routes/routes'
 
 const AppRoutes = () => {
-    const [requirements, setRequirements] = useState(false)
+    const [passRequirements, setPassRequirements] = useState(false)
 
     const credential = useSelector(getCredential)
 
@@ -23,10 +23,10 @@ const AppRoutes = () => {
 
     useEffect(() => {
         // handle requirement (fetch user credentials, ...)
-        setRequirements(true)
+        setPassRequirements(true)
     }, [])
 
-    if (!requirements) {
+    if (!passRequirements) {
         return null
     }
 

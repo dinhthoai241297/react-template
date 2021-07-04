@@ -1,9 +1,15 @@
 import React from 'react'
 import Loading from '_components/common/Loading'
 import AppRoutes from '_routes'
+import LoadingContainer from '_containers/app/LoadingContainer'
 
 const App = () => {
-    return <AppRoutes />
+    return (
+        <>
+            <AppRoutes />
+            <LoadingContainer />
+        </>
+    )
 }
 
 export default () => (

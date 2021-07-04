@@ -5,6 +5,7 @@ import { getLoading } from '_selectors/appSelectors'
 
 const LoadingContainer = () => {
     const loading = useSelector(getLoading)
+
     return <Loading show={loading > 0} />
 }
 
