@@ -9,6 +9,14 @@ import { Provider } from 'react-redux'
 import '_locales'
 import store from '_store'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+
+// Global Use
+// https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react#using
+library.add(fas, fab)
+
 ReactDOM.render(
     <Provider store={store}>
         <App />
