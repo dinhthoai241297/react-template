@@ -17,12 +17,6 @@ const routes = {
         auth: null,
         title: 'Home page',
     },
-    notFound: {
-        path: '/not-found',
-        component: PageNotFound,
-        auth: null,
-        title: 'Page not found',
-    },
     pageNotAllowed: {
         path: '/not-allowed',
         component: PageNotAllowed,
@@ -40,6 +34,13 @@ const routes = {
         component: Guide,
         auth: null,
         title: 'Guide page',
+    },
+
+    // put this at last
+    notFound: {
+        component: PageNotFound,
+        auth: null,
+        title: 'Page not found',
     },
 }
 

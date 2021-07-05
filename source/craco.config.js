@@ -1,5 +1,4 @@
 const path = require(`path`)
-const { getLoader, loaderByName } = require(`@craco/craco`)
 const alias = require(`./src/config/aliases`)
 
 const SRC = `./src`
