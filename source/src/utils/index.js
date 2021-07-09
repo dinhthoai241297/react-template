@@ -1,3 +1,5 @@
+import qs from 'query-string'
+
 const Utils = {
     camelCaseToTitleCase(camelCase) {
         if (camelCase === null || camelCase === '') {
@@ -31,6 +33,28 @@ const Utils = {
     getFileNameFromPath(path) {
         if (path) return path.split('\\').pop().split('/').pop()
         return ''
+    },
+    makePath(path, data) {
+        let pathResult = path
+        const params = {}
+        const dataKeys = Object.keys(data || {})
+
+        for (let key of dataKeys) {
+            const keyCompare = ':' + key
+            const value = data[key]
+
+            if (pathResult.indexOf(keyCompare) !== -1) {
+                pathResult = pathResult.replace(keyCompare, value)
+            } else {
+                params[key] = value
+            }
+        }
+
+        if (Object.values(params).length) {
+            pathResult += '?' + qs.stringify(params)
+        }
+
+        return pathResult
     },
 }
 
