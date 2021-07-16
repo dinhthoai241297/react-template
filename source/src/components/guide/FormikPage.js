@@ -1,4 +1,5 @@
 import React from 'react'
+import CheckboxField from '_components/common/form/CheckboxField'
 import FormBase from '_components/common/form/FormBase'
 import SelectField from '_components/common/form/SelectField'
 import TextField from '_components/common/form/TextField'
@@ -10,6 +11,11 @@ const FormikPage = ({ handleSubmit, initData }) => {
                 <TextField className="mt-4" name="username" label="Username" />
                 <TextField className="mt-4" name="address.street" />
                 <TextField className="mt-4" name="address.district" />
+                <CheckboxField
+                    className="mt-4"
+                    name="isAdmin"
+                    label="Is Admin"
+                />
                 <SelectField
                     className="mt-4"
                     name="address.city"
