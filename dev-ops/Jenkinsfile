@@ -5,22 +5,15 @@ TIMEZONE = "GMT+7"
 APP_BOOT_TIME_SECOND = 5
 SLACK_CHANNEL_NAME = "G015NGG1013"
 
-TARGET_FOLDER="/opt/deploy/hq-qrcode"
-APP_NAME = "hq-qrcode-fe"
+TARGET_FOLDER="/opt/deploy/app"
+APP_NAME = "app-fe"
 
+APP_DEV_PORT=5801
+APP_STAGING_PORT=5808
 
-
-HOST_SSH_NAME_DEV="develop-team"
-HOST_SSH_IP_DEV="104.198.40.208"
-HOST_SSH_PORT_DEV= 22
-
-APP_DEV_PORT=5802
-
-
-
-node{
+node {
     try {
-        if (_BRANCH_NAME.matches("dev-ops|dev|beta|staging|master")) {
+        if (_BRANCH_NAME.matches("dev")) {
             notifyBuild("STARTED", SLACK_CHANNEL_NAME)
         }
 
@@ -28,11 +21,8 @@ node{
             checkout scm
         }
 
-        stage ("Run unit test") {
-            println "Passed"
-        }
+        if (_BRANCH_NAME.matches("dev")) {
 
-        if (_BRANCH_NAME.matches("dev-ops|dev|beta|staging|master")) {
             BUILD_COMMAND = """
                                 cd ./source
                                 npm install
@@ -45,64 +35,55 @@ node{
                     ${BUILD_COMMAND}
                 """
             }
-        }
 
-        if (_BRANCH_NAME.matches("dev-ops|dev")) {
-            def remote = [:]
-            remote.name = HOST_SSH_NAME_DEV
-            remote.host = HOST_SSH_IP_DEV
-            remote.allowAnyHosts = true
-            remote.port = HOST_SSH_PORT_DEV
+            stage("Upload build to remote") {
 
+                try {
+                    sh """
+                        sudo docker-compose -f ${TARGET_FOLDER}/${APP_NAME}-dev/docker-compose.yml down
+                        sudo docker rmi -f ${APP_NAME}-dev:1.0
+                    """
+                } catch (e) {
 
-           withCredentials([sshUserPrivateKey(credentialsId: 'deploy_server_ssh', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
-                remote.user = userName
-                remote.identityFile = identity
-                stage("Upload build to remote") {
-
-                    try {
-                        sshCommand remote: remote, sudo:true, command: "sudo docker-compose -f ${TARGET_FOLDER}/${APP_NAME}-dev/docker-compose.yml down"
-                        sshCommand remote: remote, sudo:true, command: "sudo docker rmi -f ${APP_NAME}-dev:1.0"
-                    } catch (e) {
-
-                    }
-
-                    sshCommand remote: remote, command: "rm -rf ${TARGET_FOLDER}/${APP_NAME}-dev"
-                    sshCommand remote: remote, command: "mkdir -p ${TARGET_FOLDER}/${APP_NAME}-dev"
-                    sshPut remote: remote, from: './source/build.tar.gz', into: "${TARGET_FOLDER}/${APP_NAME}-dev/"
-                    sshPut remote: remote, from: './source/appServer.js', into: "${TARGET_FOLDER}/${APP_NAME}-dev/"
-                    sshPut remote: remote, from: './source/package.json', into: "${TARGET_FOLDER}/${APP_NAME}-dev/"
-                    sshPut remote: remote, from: './dev-ops/Dockerfile', into: "${TARGET_FOLDER}/${APP_NAME}-dev/"
-                    sshPut remote: remote, from: './dev-ops/docker-compose.yml', into: "${TARGET_FOLDER}/${APP_NAME}-dev/"
-
-                    sshCommand remote: remote, command: "sed -i 's/{PORT}/${APP_DEV_PORT}/g' ${TARGET_FOLDER}/${APP_NAME}-dev/appServer.js"
-                    sshCommand remote: remote, command: "sed -i 's/{PORT}/${APP_DEV_PORT}/g' ${TARGET_FOLDER}/${APP_NAME}-dev/Dockerfile"
-                    sshCommand remote: remote, command: "sed -i 's/{PORT}/${APP_DEV_PORT}/g' ${TARGET_FOLDER}/${APP_NAME}-dev/docker-compose.yml"
-
-                    sshCommand remote: remote, command: "sed -i 's/{CONTAINER_NAME}/${APP_NAME}-dev/g' ${TARGET_FOLDER}/${APP_NAME}-dev/docker-compose.yml"
-                    sshCommand remote: remote, command: "sed -i 's/{CONTAINER_IMAGE}/${APP_NAME}-dev/g' ${TARGET_FOLDER}/${APP_NAME}-dev/docker-compose.yml"
-
-                    sshCommand remote: remote, command: "tar -zxvf ${TARGET_FOLDER}/${APP_NAME}-dev/build.tar.gz -C ${TARGET_FOLDER}/${APP_NAME}-dev/"
-
-                    sshCommand remote: remote, command: "rm -rf ${TARGET_FOLDER}/${APP_NAME}-dev/build.tar.gz"
-
-                    //build docker file
-                    sshCommand remote: remote, sudo:true, command: "sudo docker build -t ${APP_NAME}-dev:1.0 -f ${TARGET_FOLDER}/${APP_NAME}-dev/Dockerfile ${TARGET_FOLDER}/${APP_NAME}-dev/"
                 }
+                sh """
+                    sudo rm -rf ${TARGET_FOLDER}/${APP_NAME}-dev
+                    sudo mkdir -p ${TARGET_FOLDER}/${APP_NAME}-dev
+                    sudo cp ./source/build.tar.gz ${TARGET_FOLDER}/${APP_NAME}-dev/
+                    sudo cp ./source/appServer.js ${TARGET_FOLDER}/${APP_NAME}-dev/
+                    sudo cp ./source/package.json ${TARGET_FOLDER}/${APP_NAME}-dev/
+                    sudo cp ./dev-ops/Dockerfile ${TARGET_FOLDER}/${APP_NAME}-dev/
+                    sudo cp ./dev-ops/docker-compose.yml ${TARGET_FOLDER}/${APP_NAME}-dev/
 
-                stage ("Deploy to ${_BRANCH_NAME} environment") {
-                    sshCommand remote: remote, sudo:true, command: "docker-compose -f ${TARGET_FOLDER}/${APP_NAME}-dev/docker-compose.yml up -d"
-                    sleep(0)
-                }
+                    sudo sed -i 's/{PORT}/${APP_DEV_PORT}/g' ${TARGET_FOLDER}/${APP_NAME}-dev/appServer.js
+                    sudo sed -i 's/{PORT}/${APP_DEV_PORT}/g' ${TARGET_FOLDER}/${APP_NAME}-dev/Dockerfile
+                    sudo sed -i 's/{PORT}/${APP_DEV_PORT}/g' ${TARGET_FOLDER}/${APP_NAME}-dev/docker-compose.yml
+                    sudo sed -i 's/{CONTAINER_NAME}/${APP_NAME}-dev/g' ${TARGET_FOLDER}/${APP_NAME}-dev/docker-compose.yml
+                    sudo sed -i 's/{CONTAINER_IMAGE}/${APP_NAME}-dev/g' ${TARGET_FOLDER}/${APP_NAME}-dev/docker-compose.yml
+                    sudo sed -i 's/{SERVICE_NAME}/web_admin/g' ${TARGET_FOLDER}/${APP_NAME}-dev/docker-compose.yml
+
+                    sudo tar -zxvf ${TARGET_FOLDER}/${APP_NAME}-dev/build.tar.gz -C ${TARGET_FOLDER}/${APP_NAME}-dev/
+                    sudo rm -rf ${TARGET_FOLDER}/${APP_NAME}-dev/build.tar.gz
+                    sudo docker build -t ${APP_NAME}-dev:1.0 -f ${TARGET_FOLDER}/${APP_NAME}-dev/Dockerfile ${TARGET_FOLDER}/${APP_NAME}-dev/
+
+                """
+            }
+
+            stage ("Deploy to ${_BRANCH_NAME} environment") {
+                sh """
+                    sudo docker-compose -f ${TARGET_FOLDER}/${APP_NAME}-dev/docker-compose.yml up -d
+                """
+                sleep(0)
             }
         }
-        
+
+
         currentBuild.result = "SUCCESS"
     } catch (e) {
         currentBuild.result = "FAILURE"
         throw e
     } finally {
-        if (_BRANCH_NAME.matches("dev-ops|dev|beta|staging|master")) {
+        if (_BRANCH_NAME.matches("dev")) {
             def time = formatMilisecondTime(currentBuild.timeInMillis, TIMEZONE)
             def duration = durationFormat(currentBuild.duration)
             def buildDetail = "\n————————————————————" +

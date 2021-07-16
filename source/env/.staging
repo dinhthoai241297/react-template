@@ -1,2 +1,4 @@
 REACT_APP_API = https://lc.api.developteam.info/api
 GENERATE_SOURCEMAP = false
+CI = false
+IMAGE_INLINE_SIZE_LIMIT = 0
