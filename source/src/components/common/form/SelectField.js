@@ -5,8 +5,12 @@ import { clsx, ensureArray } from '_utils/helper'
 const SelectField = ({ label, options, className, ...props }) => {
     const [field, meta] = useField(props)
 
+    const hasError = meta.touched && meta.error
+
     return (
-        <div className={clsx('app-select', className)}>
+        <div
+            className={clsx('app-select', hasError && 'error-field', className)}
+        >
             <label>{label}</label>
             <select {...field} {...props}>
                 {ensureArray(options).map(option => (
@@ -15,9 +19,7 @@ const SelectField = ({ label, options, className, ...props }) => {
                     </option>
                 ))}
             </select>
-            {meta.touched && meta.error && (
-                <div className="error">{meta.error}</div>
-            )}
+            {hasError && <div className="error">{meta.error}</div>}
         </div>
     )
 }

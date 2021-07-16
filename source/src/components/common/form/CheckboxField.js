@@ -5,8 +5,16 @@ import { clsx } from '_utils/helper'
 const CheckboxField = ({ label, options, className, ...props }) => {
     const [field, meta] = useField(props)
 
+    const hasError = meta.touched && meta.error
+
     return (
-        <div className={clsx('app-checkbox', className)}>
+        <div
+            className={clsx(
+                'app-checkbox',
+                hasError && 'error-field',
+                className
+            )}
+        >
             <label>
                 <input
                     checked={meta.value}
@@ -16,9 +24,7 @@ const CheckboxField = ({ label, options, className, ...props }) => {
                 />
                 {label}
             </label>
-            {meta.touched && meta.error && (
-                <div className="error">{meta.error}</div>
-            )}
+            {hasError && <div className="error">{meta.error}</div>}
         </div>
     )
 }
