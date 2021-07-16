@@ -1,5 +1,5 @@
 import { getObjectData, removeKey } from '_utils/localStorageHelper'
-import { AppConstants } from '../constants'
+import { AppConstants } from '_constants'
 import { USER_JWT } from '_constants/storageKeys'
 
 // const apiBodyTemplete = (data) => ({

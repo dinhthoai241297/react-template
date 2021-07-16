@@ -28,7 +28,9 @@
             "_locales": [ "src/locales/index" ],
             "_locales/*": [ "src/locales/*" ],
             "_store": [ "src/store/index" ],
-            "_store/*": [ "src/store/*" ]
+            "_store/*": [ "src/store/*" ],
+            "_services": [ "src/services/index" ],
+            "_services/*": [ "src/services/*" ]
         }
     },
     "exclude": ["node_modules"]

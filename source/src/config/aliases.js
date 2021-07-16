@@ -12,6 +12,7 @@ const aliases = (prefix = `src`) => ({
     _sagas: `${prefix}/sagas`,
     _reducers: `${prefix}/reducers`,
     _locales: `${prefix}/locales`,
+    _services: `${prefix}/services`,
 })
 
 module.exports = aliases

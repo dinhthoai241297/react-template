@@ -34,9 +34,24 @@ const Utils = {
         if (path) return path.split('\\').pop().split('/').pop()
         return ''
     },
+    /*
+    Example...
+        INPUT:
+            path = '/api/test/:id'
+            data = {
+                id: 12,
+                type: 'admin'
+            }
+        OUTPUT:
+            '/api/test/12?type=admin'
+    */
     makePath(path, data) {
+        if (!data) {
+            return path
+        }
+
         let pathResult = path
-        const params = {}
+        const queryParams = {}
         const dataKeys = Object.keys(data || {})
 
         for (let key of dataKeys) {
@@ -46,12 +61,12 @@ const Utils = {
             if (pathResult.indexOf(keyCompare) !== -1) {
                 pathResult = pathResult.replace(keyCompare, value)
             } else {
-                params[key] = value
+                queryParams[key] = value
             }
         }
 
-        if (Object.values(params).length) {
-            pathResult += '?' + qs.stringify(params)
+        if (Object.values(queryParams).length) {
+            pathResult += '?' + qs.stringify(queryParams)
         }
 
         return pathResult
