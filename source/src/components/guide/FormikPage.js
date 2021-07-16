@@ -1,6 +1,7 @@
 import React from 'react'
 import CheckboxField from '_components/common/form/CheckboxField'
 import FormBase from '_components/common/form/FormBase'
+import RadioField from '_components/common/form/RadioField'
 import SelectField from '_components/common/form/SelectField'
 import TextField from '_components/common/form/TextField'
 
@@ -24,6 +25,20 @@ const FormikPage = ({ handleSubmit, initData }) => {
                         { label: 'Ho Chi Minh', value: 'hcm' },
                     ]}
                 />
+                <div className="mt-4">
+                    <RadioField
+                        className="mt-4"
+                        name="gender"
+                        value="male"
+                        label="Male"
+                    />
+                    <RadioField
+                        className="mt-4"
+                        name="gender"
+                        value="female"
+                        label="Female"
+                    />
+                </div>
                 <button className="mt-4" type="submit">
                     Submit
                 </button>

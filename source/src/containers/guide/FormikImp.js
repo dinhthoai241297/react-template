@@ -8,6 +8,7 @@ const initData = {
         district: 'Phu Nhuan',
         city: '',
     },
+    gender: 'male',
 }
 
 const FormikImp = () => {
