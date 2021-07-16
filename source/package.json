@@ -1,12 +1,12 @@
 {
-    "name": "react-admin",
+    "name": "react-template",
     "version": "0.1.0",
     "private": true,
     "scripts": {
         "start": "env-cmd -f ./env/.local craco start",
-        "prebuild:dev": "rm -rf build",
         "build-css": "node-sass-chokidar src/ -o src/",
         "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+        "prebuild:dev": "rm -rf build",
         "build:dev": "env-cmd -f ./env/.dev craco build",
         "prebuild:prod": "rm -rf build",
         "build:prod": "env-cmd -f ./env/.prod craco build",
