@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import { LANGUAGE } from '_constants/storageKeys'
 import { DEFAULT_LANGUAGE } from '_locales/languages'
-import { getStringData, setStringData } from '_utils/localStorageHelper'
+import { getStringData } from '_utils/localStorageHelper'
 
 const initialState = {
     loading: 0,

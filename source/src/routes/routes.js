@@ -3,6 +3,7 @@ import PageNotFound from '_components/common/PageNotFound'
 import PageNotAllowed from '_components/common/PageNotAllowed'
 import LoginContainer from '_containers/account/LoginContainer'
 import Guide from '_containers/guide/Guide'
+import FormikImp from '_containers/guide/FormikImp'
 
 const routes = {
     root: {
@@ -34,6 +35,12 @@ const routes = {
         component: Guide,
         auth: null,
         title: 'Guide page',
+    },
+    formik: {
+        path: '/formik',
+        component: FormikImp,
+        auth: null,
+        title: 'Formik implement page',
     },
 
     // put this at last

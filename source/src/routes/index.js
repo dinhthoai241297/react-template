@@ -35,7 +35,7 @@ const AppRoutes = () => {
             <Switch>
                 {Object.values(routes).map(route => (
                     <Route
-                        key={route.path}
+                        key={route.path || 'not-found'}
                         path={route.path}
                         exact={route.exact ?? true}
                         render={props => {

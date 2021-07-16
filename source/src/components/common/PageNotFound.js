@@ -4,7 +4,7 @@ class PageNotFound extends Component {
     render() {
         return (
             <div className="page-not-found">
-                <img alt="not-found-image" src={notFoundImage} />
+                <img alt="not-found-background" src={notFoundImage} />
             </div>
         )
     }

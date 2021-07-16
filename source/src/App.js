@@ -12,8 +12,10 @@ const App = () => {
     )
 }
 
-export default () => (
+const WrapApp = () => (
     <React.Suspense fallback={<Loading show />}>
         <App />
     </React.Suspense>
 )
+
+export default WrapApp
