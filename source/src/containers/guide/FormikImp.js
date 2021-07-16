@@ -2,6 +2,7 @@ import React from 'react'
 import FormikPage from '_components/guide/FormikPage'
 
 import * as yup from 'yup'
+import FormikList from '_components/guide/FormikList'
 
 const initData = {
     email: '',
@@ -28,6 +29,16 @@ const schemaObject = yup.object({
         }),
 })
 
+const initDataListDynamic = {
+    name: 'admin',
+    skills: ',,'.split(','),
+}
+
+const schemaObjectListDynamic = yup.object({
+    name: yup.string().required(),
+    skills: yup.array(yup.string().required()),
+})
+
 const FormikImp = () => {
     const handleSubmit = values => {
         alert(JSON.stringify(values, null, 2))
@@ -39,6 +50,13 @@ const FormikImp = () => {
                 handleSubmit={handleSubmit}
                 initData={initData}
                 schemaObject={schemaObject}
+            />
+
+            <h1>Form list dynamic</h1>
+            <FormikList
+                handleSubmit={handleSubmit}
+                initData={initDataListDynamic}
+                schemaObject={schemaObjectListDynamic}
             />
         </div>
     )
