@@ -1,1 +1,1 @@
-folder for dev ops
+- Node version require: min 14

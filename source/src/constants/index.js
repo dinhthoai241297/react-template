@@ -29,4 +29,19 @@ export const REG_SOURCE_GOOGLE = 3
 export const GENDER_MALE = 1
 export const GENDER_FEMALE = 2
 
+export const SOCKET_STATE = {
+    CONNECTING: 0,
+    OPEN: 1,
+    CLOSING: 2,
+    CLOSED: 1,
+}
+
+export const RESPONSE_CODE = {
+    SUCCESS: 200,
+    TIME_OUT: 408
+}
+
+// milliseconds
+export const SOCKET_TIME_OUT = 10000;
+
 export { AppConstants }
