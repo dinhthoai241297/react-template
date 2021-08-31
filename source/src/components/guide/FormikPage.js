@@ -1,5 +1,6 @@
 import React from 'react'
 import CheckboxField from '_components/common/form/CheckboxField'
+import DatePickerField from '_components/common/form/DatePickerField'
 import FormBase from '_components/common/form/FormBase'
 import RadioField from '_components/common/form/RadioField'
 import SelectField from '_components/common/form/SelectField'
@@ -7,7 +8,7 @@ import TextField from '_components/common/form/TextField'
 
 const FormikPage = ({ handleSubmit, initData, schemaObject }) => {
     return (
-        <div className="p-4">
+        <div>
             <FormBase
                 initialValues={initData}
                 onSubmit={handleSubmit}
@@ -55,6 +56,9 @@ const FormikPage = ({ handleSubmit, initData, schemaObject }) => {
                         value="female"
                         label="Female"
                     />
+                </div>
+                <div className="mt-4">
+                    <DatePickerField name="birthday" />
                 </div>
                 <button className="mt-4" type="submit">
                     Submit

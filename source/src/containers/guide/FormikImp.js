@@ -45,7 +45,8 @@ const FormikImp = () => {
     }
 
     return (
-        <div>
+        <div className="p-4">
+            <h1>Form basic</h1>
             <FormikPage
                 handleSubmit={handleSubmit}
                 initData={initData}
